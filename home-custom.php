@@ -1,0 +1,122 @@
+<?php
+/**
+ * Template Name: Home Page Template
+ *
+ * A custom page template for a page created from the child theme.
+ *
+ * @category WordPress_Theme
+ * @package  Astrachildtheme
+ * @author   Kimberley Dobney <username@example.com>
+ * @license  https://www.gnu.org/licenses/gpl-2.0.html GPL-2.0-or-later
+ * @version  PHP 7.4
+ * @link     https://developer.wordpress.org/themes/basics/theme-functions/
+ * @since    1.0.0
+ */
+get_header(); // Include the header part of the theme
+?>
+
+<main class="custom-page-content">
+    <img class="home-img" src="<?php echo get_stylesheet_directory_uri(); ?>/img/home-custom/ralph-in-box.png" alt="Picture of founder ralph in chaps"/>
+    <p>Hey, i'm ralph welcome to my website. I make and wear chaps and here is the story as to whyyy....</p>
+    <!-- You can add more custom HTML/PHP here -->
+</main>
+
+<!-- This div will hold your p5.js sketch -->
+<div id="p5-container"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+<script>
+    let ripples = []; // Store active ripples
+let slaps = []; // Store slap texts
+
+let x = 0;
+let y = 0;
+let speedX = 3;
+let speedY = 3;
+let radius = 60;
+
+function setup() {
+  let canvas = createCanvas(windowWidth, windowHeight); 
+  canvas.parent('p5-container'); // ✅ Now correctly attaches canvas
+
+  noStroke();
+  // Initialize position and speed
+  x = random(radius, width - radius);
+  y = random(radius, height - radius);
+  speedX = random(2, 5);
+  speedY = random(2, 5);
+}
+
+function draw() {
+  clear();
+
+  // Move the bum
+  x += speedX;
+  y += speedY;
+
+  // Bounce off edges
+  if (x - radius < 0 || x + radius + 5 > width) {
+    speedX *= -1;
+  }
+  if (y - radius < 0 || y + radius + 5 > height) {
+    speedY *= -1;
+  }
+
+  let mainColor = color("#3300ff"); // Main bum color
+  let shadowColor = lerpColor(mainColor, color("#330044"), 0.8); // Darker blue shadow
+  let highlightColor = lerpColor(mainColor, color("#9999ff"), 0.5); // Lighter highlight
+
+  // --- SHADING ---
+  fill(shadowColor);
+  ellipse(x + 75, y + 15, 125, 145); // Left cheek shadow
+  fill(shadowColor);
+  ellipse(x + 10, y + 10, 125, 145); // Right cheek shadow
+
+  // --- BASE BUM COLOR ---
+  fill(mainColor);
+  ellipse(x, y, 120, 140); // Left cheek
+  fill(51, 0, 225); // Slightly darker for depth
+  ellipse(x + 70, y, 120, 140); // Right cheek (lighter side)
+
+  // --- RIPPLES ---
+  for (let i = ripples.length - 1; i >= 0; i--) {
+    let r = ripples[i];
+    fill(255, 8, 5, r.alpha);
+    ellipse(r.x, r.y, r.size, r.size);
+    r.size += 3;
+    r.alpha -= 5;
+    if (r.alpha <= 0) ripples.splice(i, 1);
+  }
+
+  // --- SLAP TEXT ---
+  textSize(30);
+  textAlign(CENTER, CENTER);
+  for (let i = slaps.length - 1; i >= 0; i--) {
+    let s = slaps[i];
+    fill(252,170, 199, s.alpha);
+    text("SLAP!", s.x, s.y);
+    s.alpha -= 5;
+    if (s.alpha <= 0) slaps.splice(i, 1);
+  }
+}
+
+function mousePressed() {
+  if (isMouseOnBum(mouseX, mouseY)) {
+    ripples.push({ x: mouseX, y: mouseY, size: 10, alpha: 150 });
+    slaps.push({ x: mouseX, y: mouseY - 20, alpha: 255 });
+  }
+}
+
+function isMouseOnBum(mx, my) {
+  let d1 = dist(mx, my, x, y);
+  let inLeftCheek = d1 < 60;
+  let d2 = dist(mx, my, x + 70, y);
+  let inRightCheek = d2 < 60;
+  let inBottom = (mx > x + 35 - 75 && mx < x + 35 + 75) && (my > y + 30 && my < y + 60);
+  return inLeftCheek || inRightCheek || inBottom;
+}
+</script>
+
+<?php
+get_footer(); // Include the footer part of the theme
+?>
