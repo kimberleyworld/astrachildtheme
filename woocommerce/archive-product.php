@@ -24,6 +24,22 @@ get_header('shop');
  */
 do_action('woocommerce_before_main_content');
 
+$shop_id = wc_get_page_id('shop');
+$intro = get_post_meta($shop_id, '_custom_shop_intro', true);
+$image_id = get_post_meta($shop_id, '_custom_shop_intro_image_id', true);
+$image_url = $image_id ? wp_get_attachment_image_url($image_id, 'medium') : '';
+
+if ($image_url || $intro) {
+    echo '<div class="shop-intro">';
+    if ($image_url) {
+        echo '<img src="' . esc_url($image_url) . '" alt="" />';
+    }
+    if ($intro) {
+        echo '<div class="shop-intro-text">' . wpautop(esc_html($intro)) . '</div>';
+    }
+    echo '</div>';
+}
+
 /**
  * Hook: woocommerce_shop_loop_header.
  *

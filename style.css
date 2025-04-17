@@ -28,6 +28,17 @@ Template: astra
     justify-content: center;
 }
 /** shop page css **/
+.shop-intro {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.shop-intro img{
+    width: 30%;
+    max-width: 600px;
+}
 
 .woocommerce-result-count, .woocommerce-breadcrumb {
     display: none;

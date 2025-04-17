@@ -10,6 +10,14 @@
  * @link     https://developer.wordpress.org/themes/basics/theme-functions/
  * @since    1.0.0
  */
+/**
+ * Load all meta boxes
+ */
+$meta_boxes_dir = get_stylesheet_directory() . '/inc/meta-boxes/';
+
+foreach ( glob($meta_boxes_dir . '*.php') as $filename ) {
+    include $filename;
+}
 
 /**
  * Define Constants

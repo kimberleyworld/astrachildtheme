@@ -42,9 +42,52 @@ get_header(); // Include the header part of the theme
 }
 </style>
 <main class="story-page-content">
-    <img class="home-img" src="<?php echo get_stylesheet_directory_uri(); ?>/img/main-image_about.png" alt="Picture of founder ralph in chaps"/>
-    <p>Hey, i'm ralph welcome to my website. I make and wear chaps and here is the story as to whyyy....</p>
-    <!-- You can add more custom HTML/PHP here -->
+<?php
+$story_query = new WP_Query(
+    [
+    'post_type' => 'page',
+    'title'     => 'Story',
+    'post_status' => 'publish',
+    'posts_per_page' => 1
+    ]
+);
+
+$story_id = 0;
+if ($story_query->have_posts() ) {
+    $story_query->the_post();
+    $story_id = get_the_ID();
+}
+wp_reset_postdata();
+
+if ($story_id ) {
+    $video = get_post_meta($story_id, '_story_video_url', true);
+    $sections = [];
+    for ( $i = 1; $i <= 4; $i++ ) {
+        $sections[] = get_post_meta($story_id, "_story_section_$i", true);
+    }
+
+    $video_id = get_post_meta(get_the_ID(), '_story_video_id', true);
+
+    if ($video_id) :
+        // Display YouTube video using the saved video ID
+        ?>
+    <div class="story-video" style="margin-bottom: 2rem;">
+        <iframe width="100%" height="400" src="https://www.youtube.com/embed/<?php echo esc_attr($video_id); ?>" frameborder="0" allowfullscreen></iframe>
+    </div>
+        <?php
+    endif;
+
+    // Section outputs
+    foreach ( $sections as $index => $text ) {
+        if ($text ) {
+            echo '<div class="story-section" style="max-width:600px;margin:20px auto;">';
+            echo '<h3>Part ' . ( $index + 1 ) . '</h3>';
+            echo '<p>' . esc_html($text) . '</p>';
+            echo '</div>';
+        }
+    }
+}
+?>
 </main>
 
 <!-- This div will hold your p5.js sketch -->
