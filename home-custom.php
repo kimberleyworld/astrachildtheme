@@ -14,9 +14,35 @@
  */
 get_header(); // Include the header part of the theme
 ?>
+<style>
+#p5-container {
+    position: fixed; 
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 100;
+    pointer-events: none;
+}
 
-<main class="custom-page-content">
-    <img class="home-img" src="<?php echo get_stylesheet_directory_uri(); ?>/img/home-custom/ralph-in-box.png" alt="Picture of founder ralph in chaps"/>
+.story-page-content {
+    display: flex;
+    position: relative;
+    z-index: 1;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.menu-item a, .button, a {
+    position: relative;
+    z-index: 10000; /* Ensure buttons and links are clickable above the canvas */
+}
+.home-img {
+    width: 500px;
+}
+</style>
+<main class="story-page-content">
+    <img class="home-img" src="<?php echo get_stylesheet_directory_uri(); ?>/img/main-image_about.png" alt="Picture of founder ralph in chaps"/>
     <p>Hey, i'm ralph welcome to my website. I make and wear chaps and here is the story as to whyyy....</p>
     <!-- You can add more custom HTML/PHP here -->
 </main>

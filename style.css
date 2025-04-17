@@ -10,31 +10,6 @@ Text Domain: astrachildtheme
 Template: astra
 */
 
-/** home page css **/
-#p5-container {
-    position: fixed; /* ✅ Keeps it floating over the content */
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -1; /* ✅ Pushes it behind content, increase if needed */
-    pointer-events: none; /* ✅ Prevents interfering with site interactions */
-}
-
-
-.custom-page-content {
-    display: flex;
-    position: relative;
-    z-index: 1;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-}
-
-.menu-item a, .button, a {
-    position: relative;
-    z-index: 10000; /* Ensure buttons and links are clickable above the canvas */
-}
 
 #page, .site-primary-header-wrap, .ast-desktop-header, .site-below-footer-wrap[data-section="section-below-footer-builder"] {
     background-color: #FCAAC7 !important;
@@ -51,10 +26,6 @@ Template: astra
 
 .site-content .ast-container {
     justify-content: center;
-}
-
-.home-img {
-    width: 500px;
 }
 /** shop page css **/
 
@@ -81,15 +52,6 @@ Template: astra
 .woocommerce-products-header {
     display: none;
 }
-
-.shop-custom-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: 500px;
-}
-
 .ast-woocommerce-container {
     display: flex;
     justify-content: center;

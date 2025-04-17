@@ -27,7 +27,7 @@
  */
 function Custom_Checkbox_group($name, $title, $options, $note = '') 
 {
-    echo "<fieldset><legend><strong>$title</strong></legend>";
+    echo "<fieldset><legend>$title</legend>";
     echo $note ? "<p><em>$note</em></p>" : "";
     foreach ($options as $option) {
         $val = esc_attr($option);
@@ -50,19 +50,27 @@ function Custom_Chaps_form()
         return; 
     }
     ?>
-
+<style>
+.shop-custom-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 500px;
+}
+</style>
     <div class="custom-chaps-form" style="margin-bottom:20px;">
         <h3>Let’s make a unique cheeky pair 🩷</h3>
         <p><strong>Tick your faves, and if there’s anything you’re dead set on, pop it in the comment box at the end!</strong></p>
 
         <fieldset>
-            <legend><strong>SHAPE</strong></legend>
+            <legend>SHAPE</legend>
             <label><input type="radio" name="shape" value="Long WB" required> Long WB</label><br>
             <label><input type="radio" name="shape" value="Short WB"> Short WB</label>
         </fieldset>
 
         <fieldset>
-            <legend><strong>STYLE</strong></legend>
+            <legend>STYLE</legend>
             <label><input type="radio" name="style" value="Classic" required> Classic</label><br>
             <label><input type="radio" name="style" value="Two-toned"> Two-toned</label><br>
             <label><input type="radio" name="style" value="Luxe"> Luxe</label>
