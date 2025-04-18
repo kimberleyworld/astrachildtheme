@@ -48,6 +48,9 @@ Template: astra
     background-color: #3300ff;
 }
 
+.woocommerce #content div.product .woocommerce-tabs, .woocommerce div.product .woocommerce-tabs, .woocommerce-page #content div.product .woocommerce-tabs, .woocommerce-page div.product .woocommerce-tabs {
+    display: none;
+}
 
 .woocommerce-page ul.products .button:hover {
 }

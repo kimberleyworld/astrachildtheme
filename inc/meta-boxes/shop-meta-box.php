@@ -20,7 +20,7 @@ function Register_Custom_Shop_Meta_box()
     add_meta_box(
         'custom_shop_intro',
         'Shop Page Intro',
-        'custom_shop_intro_callback',
+        'Custom_Shop_Intro_callback',
         'page',
         'normal',
         'high'

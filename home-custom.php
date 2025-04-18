@@ -15,6 +15,36 @@
 get_header(); // Include the header part of the theme
 ?>
 <style>
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
+.story-page-content {
+    scroll-snap-type: y mandatory;
+    overflow-y: auto;
+    height: 100vh;
+    position: relative;
+    z-index: 1;
+    /* Hides scrollbar on most browsers */
+    scrollbar-width: none;         /* Firefox */
+    -ms-overflow-style: none;      /* IE/Edge */
+}
+
+.page-content::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+}
+
+.snap-section {
+    scroll-snap-align: start;
+    padding: 4rem 2rem;
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 #p5-container {
     position: fixed; 
     left: 0;
@@ -24,13 +54,18 @@ get_header(); // Include the header part of the theme
     pointer-events: none;
 }
 
-.story-page-content {
-    display: flex;
-    position: relative;
-    z-index: 1;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
+.story-section {
+    font-weight: 200;
+    margin-bottom: 100px;
+}
+
+.story-section.active {
+    font-weight: 800;
+}
+
+/* Make sure no scrollbars are forced */
+.story-wrapper::-webkit-scrollbar {
+    display: none;
 }
 
 .menu-item a, .button, a {
@@ -40,6 +75,7 @@ get_header(); // Include the header part of the theme
 .home-img {
     width: 500px;
 }
+
 </style>
 <main class="story-page-content">
 <?php
@@ -71,17 +107,19 @@ if ($story_id ) {
     if ($video_id) :
         // Display YouTube video using the saved video ID
         ?>
-    <div class="story-video" style="margin-bottom: 2rem;">
+    <div class="snap-section story-video" style="margin-bottom: 2rem;">
         <iframe width="100%" height="400" src="https://www.youtube.com/embed/<?php echo esc_attr($video_id); ?>" frameborder="0" allowfullscreen></iframe>
     </div>
         <?php
     endif;
 
-    // Section outputs
+        // Section outputs
     foreach ( $sections as $index => $text ) {
         if ($text ) {
-            echo '<div class="story-section" style="max-width:600px;margin:20px auto;">';
-            echo '<h3>Part ' . ( $index + 1 ) . '</h3>';
+            // Give each section a unique ID
+            $section_id = "section-" . ($index + 1);
+            echo '<div class="snap-section story-section" id="' . esc_attr($section_id) . '" style="">';
+            // echo '<h3>Part ' . ( $index + 1 ) . '</h3>';
             echo '<p>' . esc_html($text) . '</p>';
             echo '</div>';
         }
@@ -95,7 +133,27 @@ if ($story_id ) {
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
 <script>
-    let ripples = []; // Store active ripples
+document.addEventListener("DOMContentLoaded", () => {
+    const sections = document.querySelectorAll('.story-section');
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            } else {
+                entry.target.classList.remove('active');
+            }
+        });
+    }, {
+        threshold: 0.5, // Adjust this based on when you want it to "activate"
+    });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+});
+    
+let ripples = []; // Store active ripples
 let slaps = []; // Store slap texts
 
 let x = 0;
@@ -106,7 +164,7 @@ let radius = 60;
 
 function setup() {
   let canvas = createCanvas(windowWidth, windowHeight); 
-  canvas.parent('p5-container'); // ✅ Now correctly attaches canvas
+  canvas.parent('p5-container');
 
   noStroke();
   // Initialize position and speed
