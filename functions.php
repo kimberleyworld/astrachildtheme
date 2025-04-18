@@ -10,6 +10,40 @@
  * @link     https://developer.wordpress.org/themes/basics/theme-functions/
  * @since    1.0.0
  */
+add_action('woocommerce_after_shop_loop_item', 'Add_Customise_Button_To_First_product', 15);
+/**
+ * Add a "Customise" button to the first product in the shop loop
+ * 
+ * @return void
+ */
+function Add_Customise_Button_To_First_product() 
+{
+    static $product_counter = 0;
+    global $product;
+
+    $product_counter++;
+
+    if ($product_counter === 1 && $product->get_name() === 'Custom Chaps') {
+        // Change the URL below to your customise page if needed
+        echo '<a href="' . esc_url(get_permalink($product->get_id())) . '" class="button customise-button" style="margin-top:10px;" width="80px">Customise</a>';
+    }
+}
+add_filter('render_block', 'Remove_Alignwide_From_Cart_block', 10, 2);
+/**
+ * Remove alignwide from cart block
+ * 
+ * @param string $block_content The block content.
+ * @param array  $block         The block data.
+ * 
+ * @return void
+ */
+function Remove_Alignwide_From_Cart_block($block_content, $block) 
+{
+    if ($block['blockName'] === 'woocommerce/cart') {
+        $block_content = str_replace('alignwide', '', $block_content);
+    }
+    return $block_content;
+}
 /**
  * Load all meta boxes
  */

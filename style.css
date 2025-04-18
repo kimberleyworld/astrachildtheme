@@ -8,11 +8,11 @@ License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: astrachildtheme
 Template: astra
+#f7792b
 */
 
-
 #page, .site-primary-header-wrap, .ast-desktop-header, .site-below-footer-wrap[data-section="section-below-footer-builder"] {
-    background-color: #FCAAC7 !important;
+    background-color: #fcaac7 !important;
 }
 
 .ast-primary-header-bar , .site-below-footer-wrap[data-section="section-below-footer-builder"] , .site-primary-header-wrap {
@@ -44,8 +44,9 @@ Template: astra
     display: none;
 } 
 
-.woocommerce-page ul.products .button,  .wc-block-components-button .wp-element-button .wc-block-cart__submit-button .contained{
+.woocommerce-page ul.products .button,  .wc-block-components-button .wp-element-button .wc-block-cart__submit-button .contained, .woocommerce-js div.product form.cart .button.single_add_to_cart_button{
     background-color: #3300ff;
+    color: white;
 }
 
 .woocommerce #content div.product .woocommerce-tabs, .woocommerce div.product .woocommerce-tabs, .woocommerce-page #content div.product .woocommerce-tabs, .woocommerce-page div.product .woocommerce-tabs {
@@ -53,6 +54,12 @@ Template: astra
 }
 
 .woocommerce-page ul.products .button:hover {
+    background-color: #fcaac7;
+    border: #3300ff solid 1px;
+}
+
+.ast-builder-menu-1 .menu-item.current-menu-item > .menu-link {
+    color: #3300ff !important;
 }
 
 .review-rating {
@@ -80,6 +87,14 @@ Template: astra
 .site-logo-img img {
     display: none;
 }
+
+ul.products li.product:first-child a.add_to_cart_button {
+    display: none;
+}
+.customise-button {
+    width: 60%;
+}
+
 
 @media (min-width: 922px) {
     .ast-container {

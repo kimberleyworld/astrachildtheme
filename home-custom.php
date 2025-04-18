@@ -56,7 +56,7 @@ html, body {
 
 .story-section {
     font-weight: 200;
-    margin-bottom: 100px;
+    margin-bottom: 300px;
 }
 
 .story-section.active {
@@ -145,7 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }, {
-        threshold: 0.5, // Adjust this based on when you want it to "activate"
+        threshold: 0.8, // Adjust this based on when you want it to "activate"
     });
 
     sections.forEach(section => {
