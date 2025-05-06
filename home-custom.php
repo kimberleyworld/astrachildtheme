@@ -109,6 +109,9 @@ html, body {
 .ytmCuedOverlayGradient{
     display: none !important;
 }
+.story-button{
+    margin-top: 20px;
+}
 @media (max-width: 768px) {
     .story-section, #section-2, #section-4 {
         flex-direction: column;
