@@ -59,10 +59,6 @@ html, body {
     margin-bottom: 300px;
 }
 
-.story-section.active {
-    font-weight: 800;
-}
-
 /* Make sure no scrollbars are forced */
 .story-wrapper::-webkit-scrollbar {
     display: none;
@@ -114,14 +110,18 @@ if ($story_id ) {
     endif;
 
         // Section outputs
-    foreach ( $sections as $index => $text ) {
-        if ($text ) {
-            // Give each section a unique ID
+    $manual_images = [
+     get_template_directory_uri() . '/img/story_bench_alt.png',
+    'https://example.com/image2.jpg',
+    '', // no image for section 3
+    'https://example.com/image4.jpg'
+    ];
+
+    foreach ($sections as $index => $text) {
+        if ($text) {
             $section_id = "section-" . ($index + 1);
-            echo '<div class="snap-section story-section" id="' . esc_attr($section_id) . '" style="">';
-            // echo '<h3>Part ' . ( $index + 1 ) . '</h3>';
-            echo '<p>' . esc_html($text) . '</p>';
-            echo '</div>';
+            $image_url = $manual_images[$index] ?? '';
+            Render_Story_section($section_id, $text, $image_url);
         }
     }
 }

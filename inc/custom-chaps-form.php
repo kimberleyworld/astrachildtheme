@@ -120,6 +120,10 @@ function Custom_Chaps_form()
         background-color: #3300ff;
         color: white;
     }
+     .woocommerce-js .quantity .qty {
+        border-radius: 15px;
+    }
+    
     </style>
 
     <div class="custom-chaps-form" style="margin-bottom:20px;">

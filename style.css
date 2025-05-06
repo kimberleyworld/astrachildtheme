@@ -92,9 +92,16 @@ ul.products li.product:first-child a.add_to_cart_button {
     display: none;
 }
 .customise-button {
-    width: 60%;
+    margin-top: 10px;
+    padding-top: 15px;
+    padding-right: 30px;
+    padding-bottom: 15px;
+    padding-left: 30px;
 }
 
+#ast-scroll-top {
+    background-color: #f7792b;
+}
 
 @media (min-width: 922px) {
     .ast-container {

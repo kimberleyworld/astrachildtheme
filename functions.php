@@ -10,6 +10,27 @@
  * @link     https://developer.wordpress.org/themes/basics/theme-functions/
  * @since    1.0.0
  */
+/**
+ * Render a story section with optional image
+ * 
+ * @param string $section_id The ID of the section.
+ * @param string $text       The text to display in the section.
+ * @param string $image_url  The URL of the image to display (optional).
+ * 
+ * @return void
+ */
+function Render_Story_section($section_id, $text, $image_url = '') 
+{
+    echo '<div class="snap-section story-section" id="' . esc_attr($section_id) . '">';
+    
+    if (!empty($image_url)) {
+        echo '<div class="story-image">';
+        echo '<img src="' . esc_url($image_url) . '" alt="Story Image" style="width: 100%; height: auto; margin-bottom: 1rem;">';
+        echo '</div>';
+    }
+    echo '<p>' . esc_html($text) . '</p>';
+    echo '</div>';
+}
 add_action('woocommerce_after_shop_loop_item', 'Add_Customise_Button_To_First_product', 15);
 /**
  * Add a "Customise" button to the first product in the shop loop
@@ -25,7 +46,7 @@ function Add_Customise_Button_To_First_product()
 
     if ($product_counter === 1 && $product->get_name() === 'Custom Chaps') {
         // Change the URL below to your customise page if needed
-        echo '<a href="' . esc_url(get_permalink($product->get_id())) . '" class="button customise-button" style="margin-top:10px;" width="80px">Customise</a>';
+        echo '<a href="' . esc_url(get_permalink($product->get_id())) . '" class="button customise-button">Customise</a>';
     }
 }
 add_filter('render_block', 'Remove_Alignwide_From_Cart_block', 10, 2);
