@@ -22,13 +22,12 @@
 function Render_Story_section($section_id, $text, $image_url = '') 
 {
     echo '<div class="snap-section story-section" id="' . esc_attr($section_id) . '">';
-    
+        echo '<p>' . esc_html($text) . '</p>';
     if (!empty($image_url)) {
         echo '<div class="story-image">';
-        echo '<img src="' . esc_url($image_url) . '" alt="Story Image" style="width: 100%; height: auto; margin-bottom: 1rem;">';
+        echo '<img src="' . esc_url($image_url) . '" alt="Story Image" style="max-height: 500px; width: auto; margin-top: 1rem;">';
         echo '</div>';
     }
-    echo '<p>' . esc_html($text) . '</p>';
     echo '</div>';
 }
 add_action('woocommerce_after_shop_loop_item', 'Add_Customise_Button_To_First_product', 15);

@@ -49,7 +49,7 @@ function Custom_Shop_Intro_callback( $post )
     
     <div style="margin-bottom: 20px;">
         <label for="custom_shop_intro_image"><strong>Intro Image</strong></label>
-        <p>Leave blank if you don't want an image. No file size above 600kb to avoid slowing site.</p>
+        <p>Leave blank if you don't want an image. Landscape only. No file size above 200kb to avoid slowing site.</p>
         <img id="custom-shop-intro-preview" src="<?php echo esc_url($image_url); ?>" style="max-width: 300px; display: <?php echo $image_url ? 'block' : 'none'; ?>; margin-bottom: 10px;" />
         <input type="hidden" id="custom_shop_intro_image" name="custom_shop_intro_image" value="<?php echo esc_attr($image_id); ?>">
         <button type="button" class="button" id="custom-shop-intro-upload">Select Image</button>

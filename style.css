@@ -15,6 +15,30 @@ Template: astra
     background-color: #fcaac7 !important;
 }
 
+@font-face {
+    font-family: 'Roclette';
+    src: url('fonts/RoclettePro-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Roclette';
+    src: url('fonts/RoclettePro-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+h1, h2, h3, h4, h5, h6, .site-title, .menu-link {
+    font-family: 'Roclette', sans-serif;
+}
+
+.site-title{
+    font-size: 2.5rem;
+}
+
 .ast-primary-header-bar , .site-below-footer-wrap[data-section="section-below-footer-builder"] , .site-primary-header-wrap {
     border: none;
     width: 100%;
@@ -22,6 +46,10 @@ Template: astra
 
 .ast-footer-copyright {
     display: none;
+}
+
+.ast-woo-product-category {
+    display: none !important;
 }
 
 .site-content .ast-container {
@@ -33,10 +61,11 @@ Template: astra
     display: flex;
     align-items: center;
     flex-direction: column;
+    margin-bottom: 20px;
 }
 
 .shop-intro img{
-    width: 30%;
+    width: 35%;
     max-width: 600px;
 }
 
@@ -44,24 +73,57 @@ Template: astra
     display: none;
 } 
 
-.woocommerce-page ul.products .button,  .wc-block-components-button .wp-element-button .wc-block-cart__submit-button .contained, .woocommerce-js div.product form.cart .button.single_add_to_cart_button{
-    background-color: #3300ff;
+/* Base button style */
+.woocommerce-page .button,
+.woocommerce .button,
+.wc-block-components-button,
+.wp-element-button,
+.wc-block-cart__submit-button,
+.button,
+a.button,
+button.button,
+input.button, a.wc-block-components-button.wp-element-button.wc-block-cart__submit-button.contained  {
+    background-color: #3300ff !important;
     color: white;
+    width: 100%;
+    text-align: center;
+    border: none;
+    font-weight: bold;
+    display: inline-block;
+    transition: background-color 0.3s ease, border 0.3s ease;
+}
+
+/* Hover state */
+.woocommerce-page .button:hover,
+.woocommerce .button:hover,
+.wc-block-components-button:hover,
+.wp-element-button:hover,
+.wc-block-cart__submit-button:hover,
+.button:hover,
+a.button:hover,
+button.button:hover,
+input.button:hover,
+a.wc-block-components-button.wp-element-button.wc-block-cart__submit-button.contained:hover {
+    background-color: #fcaac7 !important;
+    border: 1px solid #3300ff !important;
+    color: #f7792b !important;
+}
+
+[data-section="section-header-mobile-trigger"] .ast-button-wrap .mobile-menu-toggle-icon .ast-mobile-svg {
+    fill: #3300ff !important;
 }
 
 .woocommerce #content div.product .woocommerce-tabs, .woocommerce div.product .woocommerce-tabs, .woocommerce-page #content div.product .woocommerce-tabs, .woocommerce-page div.product .woocommerce-tabs {
     display: none;
 }
 
-.woocommerce-page ul.products .button:hover {
-    background-color: #fcaac7;
-    border: #3300ff solid 1px;
-}
 
 .ast-builder-menu-1 .menu-item.current-menu-item > .menu-link {
     color: #3300ff !important;
 }
-
+.ast-builder-menu-1 .menu-link:hover, .wc-block-components-product-name {
+    color: #f7792b !important;
+}
 .review-rating {
     display: none;
 }
@@ -97,14 +159,52 @@ ul.products li.product:first-child a.add_to_cart_button {
     padding-right: 30px;
     padding-bottom: 15px;
     padding-left: 30px;
+    text-align: center;
 }
 
 #ast-scroll-top {
     background-color: #f7792b;
 }
 
+.ast-header-break-point .main-header-bar {
+     border-bottom-width: 0px; 
+}
+.product-image-container {
+    position: relative;
+    display: block;
+    overflow: hidden;
+}
+
+.product-image-container .main-image,
+.product-image-container .hover-image {
+    display: block;
+    width: 100%;
+    transition: opacity 0.4s ease;
+}
+
+.product-image-container .hover-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    z-index: 2;
+}
+
+.product-image-container:hover .hover-image {
+    opacity: 1;
+}
+
+.product-image-container:hover .main-image {
+    opacity: 0;
+}
+
 @media (min-width: 922px) {
     .ast-container {
         max-width: 100%;
+    }
+}
+@media (max-width: 768px) {
+    .shop-intro img {
+       width: 80%;
     }
 }

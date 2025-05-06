@@ -19,16 +19,18 @@ html, body {
     height: 100%;
     overflow: hidden;
 }
-
+.button {
+    max-height: 50px;
+}
 .story-page-content {
     scroll-snap-type: y mandatory;
     overflow-y: auto;
     height: 100vh;
     position: relative;
     z-index: 1;
-    /* Hides scrollbar on most browsers */
     scrollbar-width: none;         /* Firefox */
     -ms-overflow-style: none;      /* IE/Edge */
+    align-self: center;
 }
 
 .page-content::-webkit-scrollbar {
@@ -37,12 +39,17 @@ html, body {
 
 .snap-section {
     scroll-snap-align: start;
-    padding: 4rem 2rem;
+    padding: 1rem 2rem;
     max-width: 700px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.story-intro h2{
+    text-align: center;
+    margin: 60px 0;
 }
 
 #p5-container {
@@ -54,9 +61,33 @@ html, body {
     pointer-events: none;
 }
 
+
 .story-section {
     font-weight: 200;
-    margin-bottom: 300px;
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    height: 60%;
+}
+
+.story-section p {
+    padding-right: 20px;
+    margin-bottom: 0px;
+    align-self: center;
+}
+
+.story-section p,
+.story-image {
+    width: 50%;
+}
+
+#section-2, #section-4 {
+    flex-direction: row-reverse;
+}
+
+#section-2 p, #section-4 p {
+    padding-right: 0px;
+    padding-left: 20px;
 }
 
 /* Make sure no scrollbars are forced */
@@ -71,7 +102,49 @@ html, body {
 .home-img {
     width: 500px;
 }
+.story-video{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.ytmCuedOverlayGradient{
+    display: none !important;
+}
+@media (max-width: 768px) {
+    .story-section, #section-2, #section-4 {
+        flex-direction: column;
+    }
+    .story-section p,
+    .story-image {
+    width: 100%;
+    }
+   .story-section p{
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+    padding-bottom: 10px;
+}
+.story-section {
+    height: auto;
+    min-height: 200px;
+    margin-bottom: 30px;
+}
+.story-intro h2 {
+    margin: 20px 0;
+}
+.story-button{
+    justify-content: flex-start;
+}
+.woocommerce-js a.button{
+    background-color: #3300ff !important;
+    color: white !important;
+    width: 100%;
+    text-align: center;
+}
+.button:hover {
+    background-color: #fcaac7;
+    border: #3300ff solid 1px;
+}
 
+}
 </style>
 <main class="story-page-content">
 <?php
@@ -103,19 +176,26 @@ if ($story_id ) {
     if ($video_id) :
         // Display YouTube video using the saved video ID
         ?>
-    <div class="snap-section story-video" style="margin-bottom: 2rem;">
-        <iframe width="100%" height="400" src="https://www.youtube.com/embed/<?php echo esc_attr($video_id); ?>" frameborder="0" allowfullscreen></iframe>
-    </div>
+    <div class="snap-section story-video">
+<iframe width="100%" height="400"
+    src="https://www.youtube.com/embed/<?php echo esc_attr($video_id); ?>?controls=0&modestbranding=1&rel=0&showinfo=0"
+    frameborder="0"
+    allowfullscreen>
+</iframe>    </div>
         <?php
     endif;
 
         // Section outputs
     $manual_images = [
-     get_template_directory_uri() . '/img/story_bench_alt.png',
-    'https://example.com/image2.jpg',
-    '', // no image for section 3
-    'https://example.com/image4.jpg'
+     get_stylesheet_directory_uri() . '/img/sofa_green_chaps.JPG',
+     get_stylesheet_directory_uri() . '/img/monsta_munch.JPG',
+     get_stylesheet_directory_uri() . '/img/stained_glass.jpg',
+     get_stylesheet_directory_uri() . '/img/ella_farm.jpg'
     ];
+
+    echo '<div class="story-intro">';
+    echo '<h2>Discover the Story Behind the Pieces</h2>';
+    echo '</div>';
 
     foreach ($sections as $index => $text) {
         if ($text) {
@@ -124,10 +204,13 @@ if ($story_id ) {
             Render_Story_section($section_id, $text, $image_url);
         }
     }
+    echo '<div class="snap-section story-section story-button">';
+    echo '<a href="' . esc_url(home_url('/shop')) . '" class="button customise-button">Explore the Shop</a>';
+    echo '</div>';
+
 }
 ?>
 </main>
-
 <!-- This div will hold your p5.js sketch -->
 <div id="p5-container"></div>
 
