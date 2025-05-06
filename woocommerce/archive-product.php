@@ -1,14 +1,14 @@
 <?php
 /**
- * Overrides to the shop page template to include a custom section at the top of the shop page.
- * 
+ * The Template for displaying product archives, including the main shop page which is a post type archive
+ *
  * @category WordPress_Theme
- * @package  Astrachildtheme
+ * @package  WooCommerce\Templates
  * @author   Kimberley Dobney <username@example.com>
  * @license  https://www.gnu.org/licenses/gpl-2.0.html GPL-2.0-or-later
- * @version  PHP 7.4
- * @link     https://developer.wordpress.org/themes/basics/theme-functions/
- * @since    1.0.0
+ * @version  8.6.0
+ * @link     https://woocommerce.com/document/woocommerce-template-structure/
+ * @see      https://woocommerce.com/document/template-structure/
  */
 
 defined('ABSPATH') || exit;
@@ -24,15 +24,21 @@ get_header('shop');
  */
 do_action('woocommerce_before_main_content');
 
-// ** Custom Section: Image and Description at the top of the shop page **
-?>
-<div class="shop-custom-section">
-    <img class="home-img" src="<?php echo get_stylesheet_directory_uri(); ?>/img/home-custom/ralph-in-box.png" alt="Picture of founder ralph in chaps"/>
-    <div class="shop-description">
-        <p>Here at our shop, we offer a wide variety of products to meet your needs. Take a look at our collection below and find the perfect item for you!</p>
-    </div>
-</div>
-<?php
+$shop_id = wc_get_page_id('shop');
+$intro = get_post_meta($shop_id, '_custom_shop_intro', true);
+$image_id = get_post_meta($shop_id, '_custom_shop_intro_image_id', true);
+$image_url = $image_id ? wp_get_attachment_image_url($image_id, 'medium') : '';
+
+if ($image_url || $intro) {
+    echo '<div class="shop-intro">';
+    if ($image_url) {
+        echo '<img src="' . esc_url($image_url) . '" alt="" />';
+    }
+    if ($intro) {
+        echo '<div class="shop-intro-text">' . wpautop(esc_html($intro)) . '</div>';
+    }
+    echo '</div>';
+}
 
 /**
  * Hook: woocommerce_shop_loop_header.
@@ -43,26 +49,22 @@ do_action('woocommerce_before_main_content');
  */
 do_action('woocommerce_shop_loop_header');
 
-if (woocommerce_product_loop() ) {
-
-    /**
-     * Hook: woocommerce_before_shop_loop.
-     *
-     * @hooked woocommerce_output_all_notices - 10
-     * @hooked woocommerce_result_count - 20
-     * @hooked woocommerce_catalog_ordering - 30
-     */
+if (woocommerce_product_loop()) {
+        /**
+         * Hook: woocommerce_before_shop_loop.
+         *
+         * @hooked woocommerce_output_all_notices - 10
+         * @hooked woocommerce_result_count - 20
+         * @hooked woocommerce_catalog_ordering - 30
+         */
     do_action('woocommerce_before_shop_loop');
-
     woocommerce_product_loop_start();
-
-    if (wc_get_loop_prop('total') ) {
+    if (wc_get_loop_prop('total')) {
         while ( have_posts() ) {
             the_post();
-
             /**
-             * Hook: woocommerce_shop_loop.
-             */
+              * Hook: woocommerce_shop_loop.
+            */
             do_action('woocommerce_shop_loop');
 
             wc_get_template_part('content', 'product');

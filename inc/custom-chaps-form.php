@@ -25,43 +25,109 @@
  * 
  * @return void
  */
-function Custom_Checkbox_group($name, $title, $options, $note = '') 
+function Custom_Tag_Selector_group($name, $title, $options, $note = '') 
 {
-    echo "<fieldset><legend>$title</legend>";
+    echo "<fieldset class='tag-selector-group'><legend>$title</legend>";
     echo $note ? "<p><em>$note</em></p>" : "";
+    echo "<div class='tag-options' data-name='{$name}'>";
+    
     foreach ($options as $option) {
         $val = esc_attr($option);
-        echo "<label><input type='checkbox' name='{$name}[]' value='$val'> $option</label><br>";
+        echo "<span class='tag-option' data-value='{$val}'>$option</span>";
     }
+
+    echo "</div>";
+    echo "<div class='hidden-inputs' id='{$name}-inputs'></div>";
     echo "</fieldset>";
 }
 
-// Then: your main form function
 add_action('woocommerce_before_add_to_cart_button', 'custom_chaps_form');
-
 /**
  * Create form for custom chaps
  * 
  * @return void
  */
-function Custom_Chaps_form() 
+function Custom_Chaps_form()
 {
     if (get_the_title() !== 'Custom Chaps') {
         return; 
     }
     ?>
-<style>
-.shop-custom-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: 500px;
-}
-</style>
+    <style>
+    .single-product .product {
+        flex-wrap: wrap !important;
+        display: flex;
+        justify-content: center;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .woocommerce-product-gallery img {
+        max-width: 400px;
+    }
+
+    .single-product .product .summary,
+    .single-product .product .custom-chaps-form {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    label{
+        color: white;
+    }
+
+    .tag-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 10px 0;
+    }
+
+    fieldset legend {
+        margin-bottom: 0px;
+    }
+
+    fieldset{
+        margin-top: 10px;
+        padding: .35em .625em .75em;
+    }
+
+    p {
+        margin-bottom: 5px;
+    }
+
+
+    .tag-option {
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        cursor: pointer;
+        background-color: #f9f9f9;
+        transition: 0.2s ease;
+    }
+
+    .tag-selector-group{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    .tag-option:hover {
+        border-color: #3300ff;
+    }
+
+    .tag-option.selected {
+        background-color: #3300ff;
+        color: white;
+    }
+     .woocommerce-js .quantity .qty {
+        border-radius: 15px;
+    }
+    
+    </style>
+
     <div class="custom-chaps-form" style="margin-bottom:20px;">
-        <h3>Let’s make a unique cheeky pair 🩷</h3>
-        <p><strong>Tick your faves, and if there’s anything you’re dead set on, pop it in the comment box at the end!</strong></p>
+        <p><strong>£50 deposit to pay now and then I will be in contact to discuss the final price.</strong></p>
 
         <fieldset>
             <legend>SHAPE</legend>
@@ -77,45 +143,76 @@ function Custom_Chaps_form()
         </fieldset>
 
         <?php
-        custom_checkbox_group(
-            'materials', 
-            'FAVE MATERIALS', 
-            ['Denim', 'Velvet', 'Faux leather', 'PVC', 'Satin', 'Mesh', 'Lace', 'Cotton', 'Jersey', 'Tulle', 'Faux fur', 'Metallics', 'Sparkly', 'Sheer'], '📝 If there’s something here you really want your chaps to include, let me know in the box at the end!'
+        Custom_Tag_Selector_group(
+            'materials',
+            'FAVE MATERIALS',
+            ['Denim', 'Velvet', 'Faux leather', 'PVC', 'Satin', 'Mesh', 'Lace', 'Cotton', 'Jersey', 'Tulle', 'Faux fur', 'Metallics', 'Sparkly', 'Sheer'],
+            'If there’s something here you really want your chaps to include, let me know in the box at the end!'
         );
 
-        custom_checkbox_group(
-            'colours', 'FAVE COLOURS', [
-            'Black', 'White', 'Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Pink', 'Purple', 'Grey', 'Gold', 'Silver', 'Rainbow', 'Pastel', 'Neon', 'Earth tones'], 
-            '📝 Not all materials come in every colour, but this helps me vibe with your taste.'
+        Custom_Tag_Selector_group(
+            'colours',
+            'FAVE COLOURS',
+            ['Black', 'White', 'Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Pink', 'Purple', 'Grey', 'Gold', 'Silver', 'Rainbow', 'Pastel', 'Neon', 'Earth tones'],
+            'Not all materials come in every colour, but this helps me vibe with your taste.'
         );
 
-        custom_checkbox_group(
-            'accessories', 'FAVE ACCESSORIES', 
+        Custom_Tag_Selector_group(
+            'accessories',
+            'FAVE ACCESSORIES',
             ['Eyelets', 'Chains', 'Leather fringe', 'Frills', 'Ruffles', 'Pompom trim', 'Rhinestones', 'Studs', 'Grommets', 'Zips', 'Pockets',
-            'Contrast stitching', 'Decorative straps', 'Buckles', 'Lace-up', 'Patchwork', 'Embroidery', 'Appliqué'], 
-            '📝 Again, let me know if any of these are non-negotiables in the comment box!'
+             'Contrast stitching', 'Decorative straps', 'Buckles', 'Lace-up', 'Patchwork', 'Embroidery', 'Appliqué'],
+            'Again, let me know if any of these are non-negotiables in the comment box!'
         );
 
-        custom_checkbox_group(
-            'vibes', 'VIBE CHECK', [
-            'Camp', 'Sexy', 'Silly', 'Chic', 'Punk', 'Sporty', 'Witchy', 'Soft', 'Dramatic', 'Minimal', 'Maximal', 'Retro',
-            'Futuristic', 'Festival', 'Rave', 'Fairy', 'Cowboy', 'Clowncore', 'Y2K', 'High-fashion', 'DIY']
+        Custom_Tag_Selector_group(
+            'vibes',
+            'VIBE CHECK',
+            ['Camp', 'Sexy', 'Silly', 'Chic', 'Punk', 'Sporty', 'Witchy', 'Soft', 'Dramatic', 'Minimal', 'Maximal', 'Retro',
+             'Futuristic', 'Festival', 'Rave', 'Fairy', 'Cowboy', 'Clowncore', 'Y2K', 'High-fashion', 'DIY']
         );
         ?>
 
         <p><label for="dream_moment"><strong>Where would you wear chaps?</strong><br>
-        <textarea name="dream_moment" rows="3" placeholder="Festival? Drag brunch? Grocery run?" required></textarea></label></p>
+            <textarea name="dream_moment" rows="3" placeholder="Festival? Drag brunch? Grocery run?" required></textarea>
+        </label></p>
 
         <p><label for="extra_notes"><strong>Anything else?</strong><br>
-        <textarea name="extra_notes" rows="4" placeholder="A detail you have to include? A material you hate? A love letter to chaps in general?"></textarea></label></p>
-
+            <textarea name="extra_notes" rows="4" placeholder="A detail you have to include? A material you hate? A love letter to chaps in general?"></textarea>
+        </label></p>
     </div>
 
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.tag-options').forEach(group => {
+            const name = group.dataset.name;
+            const inputContainer = document.getElementById(`${name}-inputs`);
+
+            group.addEventListener('click', function (e) {
+                if (!e.target.classList.contains('tag-option')) return;
+                const tag = e.target;
+                const value = tag.dataset.value;
+
+                tag.classList.toggle('selected');
+
+                const existing = inputContainer.querySelector(`input[value="${value}"]`);
+                if (existing) {
+                    existing.remove();
+                } else {
+                    const hiddenInput = document.createElement('input');
+                    hiddenInput.type = 'hidden';
+                    hiddenInput.name = `${name}[]`;
+                    hiddenInput.value = value;
+                    inputContainer.appendChild(hiddenInput);
+                }
+            });
+        });
+    });
+    </script>
     <?php
 }
 
-add_filter('woocommerce_add_cart_item_data', 'save_chaps_form_data', 10, 2);
-
+add_filter('woocommerce_add_cart_item_data', 'Save_Chaps_Form_data', 10, 2);
 /**
  * Saves chaps form data to cart.
  * 
@@ -124,20 +221,19 @@ add_filter('woocommerce_add_cart_item_data', 'save_chaps_form_data', 10, 2);
  * 
  * @return void
  */
-function Save_Chaps_Form_data($cart_item_data, $product_id) 
+function Save_Chaps_Form_data($cart_item_data, $product_id)
 {
     $fields = ['shape', 'style', 'materials', 'colours', 'accessories', 'vibes', 'dream_moment', 'extra_notes'];
-
     foreach ($fields as $field) {
         if (isset($_POST[$field])) {
             $value = is_array($_POST[$field]) ? array_map('sanitize_text_field', $_POST[$field]) : sanitize_text_field($_POST[$field]);
             $cart_item_data[$field] = $value;
         }
     }
-
     return $cart_item_data;
 }
 
+add_filter('woocommerce_get_item_data', 'Display_Chaps_Data_In_cart', 10, 2);
 /**
  * Display chaps custom data in cart
  * 
@@ -146,7 +242,7 @@ function Save_Chaps_Form_data($cart_item_data, $product_id)
  *
  * @return array
  */
-function Display_Chaps_Data_In_cart($item_data, $cart_item) 
+function Display_Chaps_Data_In_cart($item_data, $cart_item)
 {
     foreach ($cart_item as $key => $value) {
         if (in_array($key, ['shape', 'style', 'materials', 'colours', 'accessories', 'vibes', 'dream_moment', 'extra_notes'])) {
@@ -158,8 +254,7 @@ function Display_Chaps_Data_In_cart($item_data, $cart_item)
     return $item_data;
 }
 
-add_filter('woocommerce_get_item_data', 'Display_Chaps_Data_In_cart', 10, 2);
-
+add_action('woocommerce_add_order_item_meta', 'Save_Chaps_Data_To_order', 10, 3);
 /**
  * Save chaps data to order.
  * 
@@ -169,7 +264,7 @@ add_filter('woocommerce_get_item_data', 'Display_Chaps_Data_In_cart', 10, 2);
  * 
  * @return void
  */
-function Save_Chaps_Data_To_order($item_id, $values, $cart_item_key) 
+function Save_Chaps_Data_To_order($item_id, $values, $cart_item_key)
 {
     foreach ($values as $key => $value) {
         if (in_array($key, ['shape', 'style', 'materials', 'colours', 'accessories', 'vibes', 'dream_moment', 'extra_notes'])) {

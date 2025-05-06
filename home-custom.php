@@ -15,6 +15,43 @@
 get_header(); // Include the header part of the theme
 ?>
 <style>
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+.button {
+    max-height: 50px;
+}
+.story-page-content {
+    scroll-snap-type: y mandatory;
+    overflow-y: auto;
+    height: 100vh;
+    position: relative;
+    z-index: 1;
+    scrollbar-width: none;         /* Firefox */
+    -ms-overflow-style: none;      /* IE/Edge */
+    align-self: center;
+}
+
+.page-content::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+}
+
+.snap-section {
+    scroll-snap-align: start;
+    padding: 1rem 2rem;
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.story-intro h2{
+    text-align: center;
+    margin: 60px 0;
+}
+
 #p5-container {
     position: fixed; 
     left: 0;
@@ -24,13 +61,38 @@ get_header(); // Include the header part of the theme
     pointer-events: none;
 }
 
-.story-page-content {
+
+.story-section {
+    font-weight: 200;
     display: flex;
-    position: relative;
-    z-index: 1;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    align-self: center;
+    height: 60%;
+}
+
+.story-section p {
+    padding-right: 20px;
+    margin-bottom: 0px;
+    align-self: center;
+}
+
+.story-section p,
+.story-image {
+    width: 50%;
+}
+
+#section-2, #section-4 {
+    flex-direction: row-reverse;
+}
+
+#section-2 p, #section-4 p {
+    padding-right: 0px;
+    padding-left: 20px;
+}
+
+/* Make sure no scrollbars are forced */
+.story-wrapper::-webkit-scrollbar {
+    display: none;
 }
 
 .menu-item a, .button, a {
@@ -40,19 +102,141 @@ get_header(); // Include the header part of the theme
 .home-img {
     width: 500px;
 }
+.story-video{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.ytmCuedOverlayGradient{
+    display: none !important;
+}
+@media (max-width: 768px) {
+    .story-section, #section-2, #section-4 {
+        flex-direction: column;
+    }
+    .story-section p,
+    .story-image {
+    width: 100%;
+    }
+   .story-section p{
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+    padding-bottom: 10px;
+}
+.story-section {
+    height: auto;
+    min-height: 200px;
+    margin-bottom: 30px;
+}
+.story-intro h2 {
+    margin: 20px 0;
+}
+.story-button{
+    justify-content: flex-start;
+}
+.woocommerce-js a.button{
+    background-color: #3300ff !important;
+    color: white !important;
+    width: 100%;
+    text-align: center;
+}
+.button:hover {
+    background-color: #fcaac7;
+    border: #3300ff solid 1px;
+}
+
+}
 </style>
 <main class="story-page-content">
-    <img class="home-img" src="<?php echo get_stylesheet_directory_uri(); ?>/img/main-image_about.png" alt="Picture of founder ralph in chaps"/>
-    <p>Hey, i'm ralph welcome to my website. I make and wear chaps and here is the story as to whyyy....</p>
-    <!-- You can add more custom HTML/PHP here -->
-</main>
+<?php
+$story_query = new WP_Query(
+    [
+    'post_type' => 'page',
+    'title'     => 'Story',
+    'post_status' => 'publish',
+    'posts_per_page' => 1
+    ]
+);
 
+$story_id = 0;
+if ($story_query->have_posts() ) {
+    $story_query->the_post();
+    $story_id = get_the_ID();
+}
+wp_reset_postdata();
+
+if ($story_id ) {
+    $video = get_post_meta($story_id, '_story_video_url', true);
+    $sections = [];
+    for ( $i = 1; $i <= 4; $i++ ) {
+        $sections[] = get_post_meta($story_id, "_story_section_$i", true);
+    }
+
+    $video_id = get_post_meta(get_the_ID(), '_story_video_id', true);
+
+    if ($video_id) :
+        // Display YouTube video using the saved video ID
+        ?>
+    <div class="snap-section story-video">
+<iframe width="100%" height="400"
+    src="https://www.youtube.com/embed/<?php echo esc_attr($video_id); ?>?controls=0&modestbranding=1&rel=0&showinfo=0"
+    frameborder="0"
+    allowfullscreen>
+</iframe>    </div>
+        <?php
+    endif;
+
+        // Section outputs
+    $manual_images = [
+     get_stylesheet_directory_uri() . '/img/sofa_green_chaps.JPG',
+     get_stylesheet_directory_uri() . '/img/monsta_munch.JPG',
+     get_stylesheet_directory_uri() . '/img/stained_glass.jpg',
+     get_stylesheet_directory_uri() . '/img/ella_farm.jpg'
+    ];
+
+    echo '<div class="story-intro">';
+    echo '<h2>Discover the Story Behind the Pieces</h2>';
+    echo '</div>';
+
+    foreach ($sections as $index => $text) {
+        if ($text) {
+            $section_id = "section-" . ($index + 1);
+            $image_url = $manual_images[$index] ?? '';
+            Render_Story_section($section_id, $text, $image_url);
+        }
+    }
+    echo '<div class="snap-section story-section story-button">';
+    echo '<a href="' . esc_url(home_url('/shop')) . '" class="button customise-button">Explore the Shop</a>';
+    echo '</div>';
+
+}
+?>
+</main>
 <!-- This div will hold your p5.js sketch -->
 <div id="p5-container"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
 <script>
-    let ripples = []; // Store active ripples
+document.addEventListener("DOMContentLoaded", () => {
+    const sections = document.querySelectorAll('.story-section');
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            } else {
+                entry.target.classList.remove('active');
+            }
+        });
+    }, {
+        threshold: 0.8, // Adjust this based on when you want it to "activate"
+    });
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+});
+    
+let ripples = []; // Store active ripples
 let slaps = []; // Store slap texts
 
 let x = 0;
@@ -63,7 +247,7 @@ let radius = 60;
 
 function setup() {
   let canvas = createCanvas(windowWidth, windowHeight); 
-  canvas.parent('p5-container'); // ✅ Now correctly attaches canvas
+  canvas.parent('p5-container');
 
   noStroke();
   // Initialize position and speed
