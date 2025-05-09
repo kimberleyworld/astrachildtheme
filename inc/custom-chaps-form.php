@@ -41,7 +41,7 @@ function Custom_Tag_Selector_group($name, $title, $options, $note = '')
     echo "</fieldset>";
 }
 
-add_action('woocommerce_before_add_to_cart_button', 'custom_chaps_form');
+add_action('woocommerce_before_add_to_cart_button', 'Custom_Chaps_form');
 /**
  * Create form for custom chaps
  * 
@@ -49,8 +49,9 @@ add_action('woocommerce_before_add_to_cart_button', 'custom_chaps_form');
  */
 function Custom_Chaps_form()
 {
-    if (get_the_title() !== 'Custom Chaps') {
-        return; 
+    global $product;
+    if (!$product || $product->get_slug() !== 'custom-chaps') {
+        return;
     }
     ?>
     <style>
