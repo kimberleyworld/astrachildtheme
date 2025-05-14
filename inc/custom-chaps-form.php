@@ -185,6 +185,7 @@ function Custom_Chaps_form()
 
     <script>
     document.addEventListener('DOMContentLoaded', function () {
+        console.log('Custom chaps form script loaded.');
         document.querySelectorAll('.tag-options').forEach(group => {
             const name = group.dataset.name;
             const inputContainer = document.getElementById(`${name}-inputs`);
