@@ -182,35 +182,6 @@ function Custom_Chaps_form()
             <textarea name="extra_notes" rows="4" placeholder="A detail you have to include? A material you hate? A love letter to chaps in general?"></textarea>
         </label></p>
     </div>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        console.log('Custom chaps form script loaded.');
-        document.querySelectorAll('.tag-options').forEach(group => {
-            const name = group.dataset.name;
-            const inputContainer = document.getElementById(`${name}-inputs`);
-
-            group.addEventListener('click', function (e) {
-                if (!e.target.classList.contains('tag-option')) return;
-                const tag = e.target;
-                const value = tag.dataset.value;
-
-                tag.classList.toggle('selected');
-
-                const existing = inputContainer.querySelector(`input[value="${value}"]`);
-                if (existing) {
-                    existing.remove();
-                } else {
-                    const hiddenInput = document.createElement('input');
-                    hiddenInput.type = 'hidden';
-                    hiddenInput.name = `${name}[]`;
-                    hiddenInput.value = value;
-                    inputContainer.appendChild(hiddenInput);
-                }
-            });
-        });
-    });
-    </script>
     <?php
 }
 

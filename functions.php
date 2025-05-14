@@ -13,6 +13,24 @@
 /**
  * Render a story section with optional image
  * 
+ * @return void
+ */
+function Enqueue_Custom_Chaps_script() 
+{
+    if (is_product() && get_post_field('post_name', get_the_ID()) == 'custom-chaps') {
+        wp_enqueue_script(
+            'custom-chaps-js',
+            get_stylesheet_directory_uri() . '/js/custom-chaps.js',
+            [],
+            '1.0',
+            true
+        );
+    }
+}
+add_action('wp_enqueue_scripts', 'Enqueue_Custom_Chaps_script');
+/**
+ * Render a story section with optional image
+ * 
  * @param string $section_id The ID of the section.
  * @param string $text       The text to display in the section.
  * @param string $image_url  The URL of the image to display (optional).
