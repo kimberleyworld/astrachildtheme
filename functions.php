@@ -10,6 +10,7 @@
  * @link     https://developer.wordpress.org/themes/basics/theme-functions/
  * @since    1.0.0
  */
+require_once get_stylesheet_directory() . '/inc/custom-chaps-form.php';
 /**
  * Render a story section with optional image
  * 
@@ -108,5 +109,3 @@ function Child_Enqueue_styles()
 }
 
 add_action('wp_enqueue_scripts', 'Child_Enqueue_styles', 15);
-
-require_once get_stylesheet_directory() . '/inc/custom-chaps-form.php';
