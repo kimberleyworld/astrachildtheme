@@ -50,9 +50,10 @@ add_action('woocommerce_before_add_to_cart_button', 'Custom_Chaps_form');
 function Custom_Chaps_form()
 {
     global $product;
-    if (!$product || $product->get_slug() !== 'custom-chaps') {
+    if (!$product || $product->get_title() !== 'Custom Chaps') {
         return;
     }
+
     ?>
     <style>
     .single-product .product {
