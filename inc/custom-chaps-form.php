@@ -15,6 +15,8 @@
  * @since    1.0.0
  */
 
+
+
 /**
  * Custom Checkbox Group  
  * 
@@ -127,6 +129,14 @@ function Custom_Chaps_form()
     }
     
     </style>
+    <?php
+        $product_id = $product->get_id();
+        $product_slug = $product->get_slug();
+    ?>
+    <script>
+        console.log("Product ID: <?php echo esc_js($product_id); ?>");
+        console.log("Product Slug: '<?php echo esc_js($product_slug); ?>'");
+    </script>
 
     <div class="custom-chaps-form" style="margin-bottom:20px;">
         <p><strong>£50 deposit to pay now and then I will be in contact to discuss the final price.</strong></p>
