@@ -11,15 +11,17 @@
  * @since    1.0.0
  */
 error_log('✅ Child theme loaded from functions.php');
-add_action( 
-    'woocommerce_single_product_summary', 
-    function () {
-        echo '<div style="background: yellow; padding: 10px;">Debug hook reached</div>';
-    }, 
-    1
-);
 
 require_once get_stylesheet_directory() . '/inc/custom-chaps-form.php';
+// Call the form in WooCommerce single product page
+add_action(
+    'woocommerce_single_product_summary', 
+    function () {
+        error_log('✅ Hook firing on single product summary.');
+        Custom_Chaps_form(); // Call to render the form
+    }, 
+    25
+);
 /**
  * Render a story section with optional image
  * 
