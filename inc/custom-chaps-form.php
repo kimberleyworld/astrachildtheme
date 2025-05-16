@@ -44,6 +44,7 @@ function Custom_Tag_Selector_group($name, $title, $options, $note = '')
 }
 
 add_action('woocommerce_before_add_to_cart_button', 'Custom_Chaps_form');
+error_log('✅ custom-chaps-form.php LOADED');
 /**
  * Create form for custom chaps
  * 
