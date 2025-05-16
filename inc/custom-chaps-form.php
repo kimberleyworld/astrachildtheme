@@ -57,6 +57,10 @@ function Custom_Chaps_form()
     }
     ?>
     <style>
+    .woocommerce-js div.product div.summary .single-product-category, .woocommerce-js div.product div.images .woocommerce-product-gallery__trigger, .woocommerce-js div.product div.images .flex-control-thumbs {
+        display: none;
+    }
+
     .single-product .product {
         flex-wrap: wrap !important;
         display: flex;

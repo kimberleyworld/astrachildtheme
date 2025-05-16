@@ -41,13 +41,23 @@ add_action('wp_enqueue_scripts', 'Enqueue_Custom_Chaps_script');
 function Render_Story_section($section_id, $text, $image_url = '') 
 {
     echo '<div class="snap-section story-section" id="' . esc_attr($section_id) . '">';
-        echo '<p>' . esc_html($text) . '</p>';
+    echo '<p>' . esc_html($text) . '</p>';
+    
     if (!empty($image_url)) {
         echo '<div class="story-image">';
-        echo '<img src="' . esc_url($image_url) . '" alt="Story Image" style="max-height: 500px; width: auto; margin-top: 1rem;">';
+        echo '<div class="image-frame-wrapper">';
+        echo '<img src="' . esc_url($image_url) . '" alt="Story Image">';
+        echo '<div class="custom-frame">';
+        echo '<span class="frame-line top"></span>';
+        echo '<span class="frame-line right"></span>';
+        echo '<span class="frame-line bottom"></span>';
+        echo '<span class="frame-line left"></span>';
         echo '</div>';
+        echo '</div>'; // image-frame-wrapper
+        echo '</div>'; // story-image
     }
-    echo '</div>';
+
+    echo '</div>'; // story-section
 }
 add_action('woocommerce_after_shop_loop_item', 'Add_Customise_Button_To_First_product', 15);
 /**

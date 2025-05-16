@@ -101,5 +101,87 @@ do_action('woocommerce_after_main_content');
  * @hooked woocommerce_get_sidebar - 10
  */
 do_action('woocommerce_sidebar');
+?>
 
-get_footer('shop');
+<div id="p5-stars"></div>
+
+<style>
+  #p5-stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+  }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+<script>
+let stars = [];
+
+function setup() {
+  let canvas = createCanvas(windowWidth, windowHeight);
+  canvas.parent('p5-stars');
+  noStroke();
+}
+
+function draw() {
+  clear();
+  for (let i = stars.length - 1; i >= 0; i--) {
+    stars[i].update();
+    stars[i].display();
+    if (stars[i].isDead()) {
+      stars.splice(i, 1);
+    }
+  }
+}
+
+function mouseMoved() {
+  for (let i = 0; i < 3; i++) {
+    stars.push(new Star(mouseX, mouseY));
+  }
+}
+
+class Star {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.life = 255;
+    this.outerRadius = random(6, 10);
+    this.innerRadius = this.outerRadius / 2.5;
+    this.angle = random(TWO_PI);
+    this.speed = random(0.2, 1.5);
+  }
+
+  update() {
+    this.x += cos(this.angle) * this.speed;
+    this.y += sin(this.angle) * this.speed;
+    this.life -= 4;
+  }
+
+  display() {
+    push();
+    translate(this.x, this.y);
+    fill(255, 255, 255, this.life);
+    beginShape();
+    let points = 5;
+    for (let i = 0; i < points * 2; i++) {
+      let angle = PI * i / points;
+      let r = i % 2 === 0 ? this.outerRadius : this.innerRadius;
+      let sx = cos(angle) * r;
+      let sy = sin(angle) * r;
+      vertex(sx, sy);
+    }
+    endShape(CLOSE);
+    pop();
+  }
+
+  isDead() {
+    return this.life <= 0;
+  }
+}
+</script>
+
+<?php get_footer('shop'); ?>
