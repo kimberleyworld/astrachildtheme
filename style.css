@@ -12,7 +12,7 @@ Template: astra
 */
 
 #page, .site-primary-header-wrap, .ast-desktop-header, .site-below-footer-wrap[data-section="section-below-footer-builder"] {
-    background-color: #fcaac7 !important;
+    background-color: #fcaac7;
 }
 
 @font-face {
@@ -33,6 +33,9 @@ Template: astra
 
 h1, h2, h3, h4, h5, h6, .site-title, .menu-link {
     font-family: 'Roclette', sans-serif;
+}
+.story-intro h2 {
+    font-size: 2.5rem;
 }
 
 .site-title{
@@ -83,14 +86,15 @@ h1, h2, h3, h4, h5, h6, .site-title, .menu-link {
 a.button,
 button.button,
 input.button, a.wc-block-components-button.wp-element-button.wc-block-cart__submit-button.contained  {
-    background-color: #3300ff !important;
+    background-color: #3300ff  !important;
     color: white;
     width: 100%;
     text-align: center;
     border: none;
     font-weight: bold;
     display: inline-block;
-    transition: background-color 0.3s ease, border 0.3s ease;
+    transition: none !important;
+    transform: none !important;
 }
 
 /* Hover state */
@@ -107,6 +111,8 @@ a.wc-block-components-button.wp-element-button.wc-block-cart__submit-button.cont
     background-color: #fcaac7 !important;
     border: 1px solid #3300ff !important;
     color: #f7792b !important;
+    transition: none !important;
+    transform: none !important;
 }
 
 [data-section="section-header-mobile-trigger"] .ast-button-wrap .mobile-menu-toggle-icon .ast-mobile-svg {
@@ -135,11 +141,25 @@ a.wc-block-components-button.wp-element-button.wc-block-cart__submit-button.cont
 .woocommerce-products-header {
     display: none;
 }
+
 .ast-woocommerce-container {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    padding: 0px   20px;
+}
+
+ul.products {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+ul.products li.product {
+    border: 1px solid #3300ff;
+    padding: 20px !important;
+    box-sizing: border-box;
+    width: 33.3333%; /* or adjust to your column count */
 }
 
 #primary{
