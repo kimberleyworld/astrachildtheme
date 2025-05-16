@@ -11,6 +11,13 @@
  * @since    1.0.0
  */
 error_log('✅ Child theme loaded from functions.php');
+add_action( 
+    'woocommerce_single_product_summary', 
+    function () {
+        echo '<div style="background: yellow; padding: 10px;">Debug hook reached</div>';
+    }, 
+    1
+);
 
 require_once get_stylesheet_directory() . '/inc/custom-chaps-form.php';
 /**
