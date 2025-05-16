@@ -59,10 +59,14 @@ add_action(
 function Custom_Chaps_form()
 {
     global $product;
-    if (!$product || $product->get_title() !== 'Custom Chaps') {
+    // if (!$product || $product->get_title() !== 'Custom Chaps') {
+    //     return;
+    // }
+    // TEMP TEST (comment out old one)
+    if (!$product) {
         return;
     }
-    error_log('Product object: ' . print_r($product, true));
+    error_log('✅ Product title: ' . $product->get_title());
 
     ?>
     <style>
