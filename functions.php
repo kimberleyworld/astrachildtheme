@@ -10,6 +10,8 @@
  * @link     https://developer.wordpress.org/themes/basics/theme-functions/
  * @since    1.0.0
  */
+error_log('✅ Child theme loaded from functions.php');
+
 require_once get_stylesheet_directory() . '/inc/custom-chaps-form.php';
 /**
  * Render a story section with optional image
