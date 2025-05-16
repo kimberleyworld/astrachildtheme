@@ -58,15 +58,18 @@ add_action(
  */
 function Custom_Chaps_form()
 {
-    global $product;
+    // global $product;
     // if (!$product || $product->get_title() !== 'Custom Chaps') {
     //     return;
     // }
-    // TEMP TEST (comment out old one)
-    if (!$product) {
+    $product = wc_get_product(get_the_ID());
+    if (!$product || !is_a($product, 'WC_Product')) {
+        error_log('❌ Could not get product object.');
         return;
     }
     error_log('✅ Product title: ' . $product->get_title());
+    error_log('📦 Product ID: ' . get_the_ID());
+    error_log('📦 Is Product? ' . (is_product() ? 'Yes' : 'No'));
 
     ?>
     <style>
