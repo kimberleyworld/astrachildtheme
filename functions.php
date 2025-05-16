@@ -10,19 +10,7 @@
  * @link     https://developer.wordpress.org/themes/basics/theme-functions/
  * @since    1.0.0
  */
-error_log('✅ Child theme loaded from functions.php');
-
 require_once get_stylesheet_directory() . '/inc/custom-chaps-form.php';
-// Call the form in WooCommerce single product page
-// Insert custom form just BEFORE the add-to-cart button
-add_action(
-    'woocommerce_before_add_to_cart_button', 
-    function () {
-        error_log('✅ Hook: woocommerce_before_add_to_cart_button firing.');
-        Custom_Chaps_form();
-    }, 
-    5
-);
 /**
  * Render a story section with optional image
  * 

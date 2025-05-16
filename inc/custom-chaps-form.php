@@ -44,13 +44,6 @@ function Custom_Tag_Selector_group($name, $title, $options, $note = '')
 }
 
 add_action('woocommerce_before_add_to_cart_button', 'Custom_Chaps_form');
-error_log('✅ custom-chaps-form.php LOADED');
-add_action( 
-    'init', 
-    function () {
-            error_log('✅ Custom chaps init test');
-    }
-);
 /**
  * Create form for custom chaps
  * 
@@ -58,19 +51,10 @@ add_action(
  */
 function Custom_Chaps_form()
 {
-    // global $product;
-    // if (!$product || $product->get_title() !== 'Custom Chaps') {
-    //     return;
-    // }
-    $product = wc_get_product(get_the_ID());
-    if (!$product || !is_a($product, 'WC_Product')) {
-        error_log('❌ Could not get product object.');
+    global $product;
+    if (!$product || $product->get_title() !== 'Custom Chaps') {
         return;
     }
-    error_log('✅ Product title: ' . $product->get_title());
-    error_log('📦 Product ID: ' . get_the_ID());
-    error_log('📦 Is Product? ' . (is_product() ? 'Yes' : 'No'));
-
     ?>
     <style>
     .single-product .product {
@@ -144,15 +128,6 @@ function Custom_Chaps_form()
     }
     
     </style>
-    <?php
-        $product_id = $product->get_id();
-        $product_slug = $product->get_slug();
-    ?>
-    <script>
-        console.log("Product ID: <?php echo esc_js($product_id); ?>");
-        console.log("Product Slug: '<?php echo esc_js($product_slug); ?>'");
-    </script>
-
     <div class="custom-chaps-form" style="margin-bottom:20px;">
         <p><strong>£50 deposit to pay now and then I will be in contact to discuss the final price.</strong></p>
 
