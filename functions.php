@@ -14,13 +14,14 @@ error_log('✅ Child theme loaded from functions.php');
 
 require_once get_stylesheet_directory() . '/inc/custom-chaps-form.php';
 // Call the form in WooCommerce single product page
+// Insert custom form just BEFORE the add-to-cart button
 add_action(
-    'woocommerce_single_product_summary', 
+    'woocommerce_before_add_to_cart_button', 
     function () {
-        error_log('✅ Hook firing on single product summary.');
-        Custom_Chaps_form(); // Call to render the form
+        error_log('✅ Hook: woocommerce_before_add_to_cart_button firing.');
+        Custom_Chaps_form();
     }, 
-    25
+    5
 );
 /**
  * Render a story section with optional image
