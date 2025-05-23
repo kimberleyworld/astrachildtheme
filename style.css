@@ -46,11 +46,6 @@ h1, h2, h3, h4, h5, h6, .site-title, .menu-link {
     border: none;
     width: 100%;
 }
-
-.ast-footer-copyright {
-    display: none;
-}
-
 .ast-woo-product-category {
     display: none !important;
 }
@@ -218,13 +213,24 @@ ul.products li.product:first-child a.add_to_cart_button {
     opacity: 0;
 }
 
-@media (min-width: 922px) {
+@media (min-width: 921px) {
     .ast-container {
         max-width: 100%;
     }
+        #ast-mobile-header,
+    .ast-mobile-header-content,
+    .ast-mobile-menu-trigger-minimal {
+        display: none !important;
+    }
+    
 }
 @media (max-width: 768px) {
     .shop-intro img {
        width: 80%;
+    }
+}
+@media (max-width: 480px) {
+    .customise-button {
+        padding: 15px 5px !important;
     }
 }

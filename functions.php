@@ -61,7 +61,7 @@ function Render_Story_section($section_id, $text, $image_url = '')
 }
 add_action('woocommerce_after_shop_loop_item', 'Add_Customise_Button_To_First_product', 15);
 /**
- * Add a "Customise" button to the first product in the shop loop
+ * Add a "Customise" button and deposit note to the first product in the shop loop
  * 
  * @return void
  */
@@ -73,10 +73,12 @@ function Add_Customise_Button_To_First_product()
     $product_counter++;
 
     if ($product_counter === 1 && $product->get_name() === 'Custom Chaps') {
-        // Change the URL below to your customise page if needed
+        // Add a note about the deposit and pricing
+        echo '<span class="customise-note" style="margin-top:4px; font-size: 0.8rem; color: #666;">£50 deposit only – final price will be confirmed after quote.</span>';
         echo '<a href="' . esc_url(get_permalink($product->get_id())) . '" class="button customise-button">Customise</a>';
     }
 }
+
 add_filter('render_block', 'Remove_Alignwide_From_Cart_block', 10, 2);
 /**
  * Remove alignwide from cart block

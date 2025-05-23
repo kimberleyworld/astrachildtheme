@@ -277,14 +277,11 @@ if ($story_id ) {
 </main>
 <!-- This div will hold your p5.js sketch -->
 <div id="p5-container"></div>
-<img id="floating-svg" src="<?php echo get_stylesheet_directory_uri(); ?>/img/floating_ass.svg" style="position: fixed; width: 150px; height: 150px; pointer-events: none; z-index: 101;">
-
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
 <script>
 let x, y;
 let speedX, speedY;
-const svgSize = 200;
 
 let stars = [];
 
@@ -292,28 +289,10 @@ function setup() {
   let canvas = createCanvas(windowWidth, windowHeight);
   canvas.parent('p5-container');
   noStroke();
-
-  x = random(svgSize, width - svgSize);
-  y = random(svgSize, height - svgSize);
-  speedX = random(0.5, 3); 
-  speedY = random(0.5, 3);
 }
 
 function draw() {
   clear();
-
-  // --- Move and position floating SVG ---
-  x += speedX;
-  y += speedY;
-
-  if (x < 0 || x + svgSize > width) speedX *= -1;
-  if (y < 0 || y + svgSize > height) speedY *= -1;
-
-  const svg = document.getElementById('floating-svg');
-  if (svg) {
-    svg.style.left = x + 'px';
-    svg.style.top = y + 'px';
-  }
 
   // --- Add new star at mouse position ---
   if (frameCount % 2 === 0 && mouseX >= 0 && mouseY >= 0) {

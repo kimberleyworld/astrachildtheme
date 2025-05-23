@@ -97,6 +97,8 @@ function Custom_Chaps_form()
     fieldset{
         margin-top: 10px;
         padding: .35em .625em .75em;
+        border: 1px solid #f7792b;
+        border-radius: 0px;
     }
 
     p {
@@ -106,8 +108,7 @@ function Custom_Chaps_form()
 
     .tag-option {
         padding: 6px 12px;
-        border: 1px solid #ccc;
-        border-radius: 20px;
+        border: 1px solid #f7792b;
         cursor: pointer;
         background-color: #f9f9f9;
         transition: 0.2s ease;
@@ -124,7 +125,7 @@ function Custom_Chaps_form()
     }
 
     .tag-option.selected {
-        background-color: #3300ff;
+        background-color: #f7792b;
         color: white;
     }
      .woocommerce-js .quantity .qty {
@@ -133,7 +134,7 @@ function Custom_Chaps_form()
     
     </style>
     <div class="custom-chaps-form" style="margin-bottom:20px;">
-        <p><strong>£50 deposit to pay now and then I will be in contact to discuss the final price.</strong></p>
+        <p><strong>A £50 deposit is required to begin your custom chaps order. This deposit is fully refundable until the full payment is made. I’ll be in touch soon to confirm the final details and provide a full quote.</strong></p>
 
         <fieldset>
             <legend>SHAPE</legend>
@@ -151,21 +152,21 @@ function Custom_Chaps_form()
         <?php
         Custom_Tag_Selector_group(
             'materials',
-            'FAVE MATERIALS',
+            'FAVE MATERIALS (pick up to 3)',
             ['Denim', 'Velvet', 'Faux leather', 'PVC', 'Satin', 'Mesh', 'Lace', 'Cotton', 'Jersey', 'Tulle', 'Faux fur', 'Metallics', 'Sparkly', 'Sheer'],
             'If there’s something here you really want your chaps to include, let me know in the box at the end!'
         );
 
         Custom_Tag_Selector_group(
             'colours',
-            'FAVE COLOURS',
+            'FAVE COLOURS (pick up to 3)',
             ['Black', 'White', 'Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Pink', 'Purple', 'Grey', 'Gold', 'Silver', 'Rainbow', 'Pastel', 'Neon', 'Earth tones'],
             'Not all materials come in every colour, but this helps me vibe with your taste.'
         );
 
         Custom_Tag_Selector_group(
             'accessories',
-            'FAVE ACCESSORIES',
+            'FAVE ACCESSORIES (pick up to 3)',
             ['Eyelets', 'Chains', 'Leather fringe', 'Frills', 'Ruffles', 'Pompom trim', 'Rhinestones', 'Studs', 'Grommets', 'Zips', 'Pockets',
              'Contrast stitching', 'Decorative straps', 'Buckles', 'Lace-up', 'Patchwork', 'Embroidery', 'Appliqué'],
             'Again, let me know if any of these are non-negotiables in the comment box!'
@@ -173,7 +174,7 @@ function Custom_Chaps_form()
 
         Custom_Tag_Selector_group(
             'vibes',
-            'VIBE CHECK',
+            'VIBE CHECK (pick up to 3)',
             ['Camp', 'Sexy', 'Silly', 'Chic', 'Punk', 'Sporty', 'Witchy', 'Soft', 'Dramatic', 'Minimal', 'Maximal', 'Retro',
              'Futuristic', 'Festival', 'Rave', 'Fairy', 'Cowboy', 'Clowncore', 'Y2K', 'High-fashion', 'DIY']
         );
