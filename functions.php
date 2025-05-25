@@ -74,8 +74,8 @@ function Add_Customise_Button_To_First_product()
 
     if ($product_counter === 1 && $product->get_name() === 'Custom Chaps') {
         // Add a note about the deposit and pricing
-        echo '<span class="customise-note" style="margin-top:4px; font-size: 0.8rem; color: #666;">£50 deposit only – final price will be confirmed after quote.</span>';
         echo '<a href="' . esc_url(get_permalink($product->get_id())) . '" class="button customise-button">Customise</a>';
+        echo '<span class="customise-note" style="margin-top:4px; font-size: 0.8rem; color: #666;">£50 deposit only – final price will be confirmed after quote.</span>';
     }
 }
 
