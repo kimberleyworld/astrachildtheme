@@ -258,7 +258,7 @@ if ($story_id ) {
     ];
 
     echo '<div class="story-intro">';
-    echo '<h2>Discover the Story Behind the Pieces</h2>';
+    echo '<h2>Discover the story behind CHEEK</h2>';
     echo '</div>';
 
     foreach ($sections as $index => $text) {
