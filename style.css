@@ -16,23 +16,15 @@ Template: astra
 }
 
 @font-face {
-    font-family: 'Roclette';
-    src: url('fonts/RoclettePro-Bold.ttf') format('truetype');
+    font-family: 'Roketto';
+    src: url('fonts/Roketto.ttf') format('truetype');
     font-weight: bold;
     font-style: normal;
     font-display: swap;
 }
 
-@font-face {
-    font-family: 'Roclette';
-    src: url('fonts/RoclettePro-SemiBold.ttf') format('truetype');
-    font-weight: 600;
-    font-style: normal;
-    font-display: swap;
-}
-
 h1, h2, h3, h4, h5, h6, .site-title, .menu-link {
-    font-family: 'Roclette', sans-serif;
+    font-family: 'Roketto', sans-serif;
 }
 .story-intro h2 {
     font-size: 2.5rem;
